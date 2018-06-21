@@ -36,9 +36,10 @@ allData$revenue <- allData$units*allData$revenuePerUnit
 
 RPO <- aggregate(revenue~orderNumber, allData, sum) # Calculating revenue per order 
 n <- length(unique(allData$productNumber))
+NO <- length(unique(allData$orderNumber))
 
-OrdersHelper1 <- replicate(length(unique(allData$orderNumber)), list())
-for (i in 1:27) {
+OrdersHelper1 <- replicate(NO, list())
+for (i in 1:NO) {
   OrdersHelper1[[i]] <- paste(subset(allData, orderNumber == RPO$orderNumber[i])$productNumber, collapse = "; ")
 }
 names(OrdersHelper1) <- RPO$orderNumber
@@ -51,9 +52,9 @@ OrdersHelper1$SimId <- as.numeric(OrdersHelper1$simGroup)
 allData <- plyr:: join(allData, OrdersHelper1)
 RPOGroup <-  aggregate(revenue~SimId, allData, sum) # Calculating revenue per products groups
 
-NO <- length(unique(allData$orderNumber))
+
 OrdersHelper2 <- replicate(NO, list())
-for (i in 1:27) {
+for (i in 1:NO) {
   OrdersHelper2[[i]] <- subset(allData, orderNumber == RPO$orderNumber[i])$productNumber
 }
 
