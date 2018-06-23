@@ -63,7 +63,7 @@ n <- length(unique(allData$productNumber))
 
 ProductsOrders <- replicate(n, list())
 for (i in 1:n) {
-  ProductsOrders[[i]] <- subset(allData, productNumber ==i)$orderNumber # List of oders that require specific products 
+  ProductsOrders[[i]] <- subset(allData, productNumber == productRevenues$productNumber[i])$orderNumber # List of oders that require specific products 
 }
 
 ProductsMatrix <- matrix(ncol=n, nrow = n)
